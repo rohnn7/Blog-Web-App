@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Blog</title>
+    <!--bootstrap link css-->
+      <script src="C:/Anaconda/DjangoProjects/BlogClone/ckeditor.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">  
+    <!--wordpad style editor link-->
+    <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+    <!--our css link-->
+    <link rel="stylesheet" href="{%static 'css/blog.css'%}">
+    <!--Google fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-default techfonts custom-navbar">
+      <div class="container">
+        <ul class="nav navbar-nav">
+          <li><a class="navbar-brand bigbrand" href="{% url 'blog:post_list' %}">My Blog</a></li>
+          <li><a class="navbar-link" href="{% url 'blog:about' %}">About</a></li>
+          <li><a class="navbar-link" href="https://www.github.com">GitHub</a></li>
+          <li><a class="navbar-link" href="https://www.linkedin.com">LinkedIn</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <!--user.is_authenticated is a built in funtion, which tells wether user is loggedin or not-->
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'blog:post_new' %}">Create</a></li>
+          <li><a href="{% url 'blog:post_draft_list' %}">Drafts</a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+          <li><a >Welcome: {{ user.username }}</a></li>
+          {% else %}
+          <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-user"></span></a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="blog_post">
+            {% block content %}
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
